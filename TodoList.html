@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Todo List</title>
+    <style>
+        * {
+            margin: 0%;
+            padding: 0%;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background-color: #ecf0f1;
+            padding-top: 10%;
+        }
+        .wrapper {
+            background-color: #fff;
+            width: 40%;
+            margin: auto;
+            box-shadow: 2px 2px 3px rgba(187, 187, 187, 0.2);
+            padding: 15px;
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -o-user-select: none;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 1%;
+        }
+
+        .add_wrap {
+            /* background-color: tomato; */
+            display: flex;
+            flex-direction: row-reverse;
+        }
+        .add_wrap button {
+            padding: 8px 20px;
+            background-color: #9b59b6;
+            color: #fff;
+            border: 1px solid #9b59b6;
+            cursor: pointer;
+            transition: 0.2s linear;
+        }
+        .add_wrap button:hover {
+            background-color: #8e44ad;
+            border: 1px solid #8e44ad;
+        }
+        .add_wrap input {
+            background-color: #ecf0f1;
+            border: 1px solid #ecf0f1;
+            width: 100%;
+            outline: none;
+            padding-left: 10px;
+            color: #333;
+        }
+        ul {
+            /* background-color: tomato; */
+            list-style: none;
+            margin-top: 5%;
+        }
+        ul li {
+            width: 100%;
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            border-bottom: 1px solid #ecf0f1;
+            margin-bottom: 5%;
+        }
+        ul li input {
+            width: 100%;
+            background: none;
+            border: none;
+            outline: none;
+            color: #333;
+        }
+        ul li button {
+            padding: 5px 10px;
+            background-color: none;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s linear;
+        }
+        ul li button:hover {
+            background-color: #d8d8d8;
+            color: #8e44ad;
+        }
+    </style>
+</head>
+<body>
+    
+    <h1>ToDo List</h1>
+    <div class="wrapper">
+        <form>
+            <div class="add_wrap">
+                <button type="submit" id="add_btn">Add</button>
+                <input type="text" placeholder="New task" id="todoinput" autocomplete="off">
+            </div>
+        </form>
+        <ul id="unorder">
+            <!-- <li>
+                <button>delete</button>
+                <button>edit</button>
+                <input type="text">
+            </li>
+            <li>
+                <button>delete</button>
+                <button>edit</button>
+                <input type="text">
+            </li>
+            <li>
+                <button>delete</button>
+                <button>edit</button>
+                <input type="text">
+            </li> -->
+        </ul>
+    </div>
+
+    <script>
+
+        let input = document.getElementById('todoinput');
+        let btn = document.getElementById('add_btn');
+        let ul = document.getElementById('unorder');
+
+        btn.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            let li = document.createElement('li');
+            let todoinput = document.createElement('input');
+            todoinput.setAttribute('type', 'text');
+            todoinput.setAttribute('value', input.value);
+            todoinput.setAttribute('readonly', 'readonly');
+            let edit = document.createElement('button');
+            edit.innerHTML = 'EDIT';
+            let del = document.createElement('button');
+            del.innerHTML = 'DELETE';
+            li.appendChild(del);
+            li.appendChild(edit);
+            li.appendChild(todoinput);
+            ul.appendChild(li);
+            input.value = '';
+
+            edit.addEventListener('click', function () {
+
+                if (edit.innerHTML == 'EDIT') 
+                {
+                    todoinput.removeAttribute('readonly', 'readonly');
+                    edit.innerHTML = 'SAVE';
+                } 
+                else 
+                {
+                    todoinput.setAttribute('readonly', 'readonly');
+                    edit.innerHTML = 'EDIT';
+                }
+
+            });
+            del.addEventListener('click', function () {
+
+                let veri = confirm("Do you really want to delete this task?");
+                
+                if (veri) 
+                {
+                    ul.removeChild(li);
+                }
+            });
+
+
+        });
+        
+    </script>
+
+</body>
+</html>
